@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: reuniones
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: "jdbc:h2:mem:testdb"
+  jpa:
+    hibernate:
+      ddl-auto: none
+  data:
+    rest:
+      base-path: "api/rest"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      roles: "USER"
+      show-details: when_authorized
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          datasource:
+            init:
+              ScriptUtils: debug
+server:
+  port: 8080
+---
+spring:
+  config:
+    activate:
+      on-profile: "desarrollo"
+server:
+  port: 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: "pruebas"
+server:
+  port: 8082
+---
+spring:
+  config:
+    activate:
+      on-profile: "produccion"
+server:
+  port: 9000
